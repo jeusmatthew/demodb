@@ -35,7 +35,7 @@ public class ControladorProducto implements ActionListener {
             agregarMedicamento();
         }
         else if (source == view.btnEliminar) {
-
+            eliminarMedicamento();
         }
         else if (source == view.btnBuscar) {
             buscarMedicamento();
@@ -44,11 +44,35 @@ public class ControladorProducto implements ActionListener {
             limpiarCampos();
         }
         else if (source == view.btnModificar) {
-            
+            modificarMedicamento();
         }
 
     }
 
+    /**
+ *
+ * @author raulmagana
+ */
+    
+    private void eliminarMedicamento() {
+    int id = Integer.parseInt(view.txtId.getText());
+    if (consultasProducto.eliminar(id)) {
+        JOptionPane.showMessageDialog(null, "Medicamento eliminado");
+        limpiarCampos();
+    } else {
+        JOptionPane.showMessageDialog(null, "Error al eliminar el medicamento");
+    }
+}
+    private void modificarMedicamento() {
+    obtenerMedicamentoDesdeVista();
+    if (consultasProducto.modificar(medicamento)) {
+        JOptionPane.showMessageDialog(null, "Medicamento modificado");
+        limpiarCampos();
+    } else {
+        JOptionPane.showMessageDialog(null, "Error al modificar el medicamento");
+    }
+}
+    
     private void agregarMedicamento() {
         obtenerMedicamentoDesdeVista();
         if (consultasProducto.registrar(medicamento)) {
