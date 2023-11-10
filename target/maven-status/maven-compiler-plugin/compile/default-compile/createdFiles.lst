@@ -1,3 +1,7 @@
+controller\ControladorProducto.class
+model\ConsultasProducto.class
 view\ProductView$1.class
 view\ProductView.class
 com\example\demodb\Demodb.class
+model\Conexion.class
+model\Medicamento.class

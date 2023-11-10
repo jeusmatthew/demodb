@@ -13,12 +13,49 @@ public class ConsultasProducto {
     public ConsultasProducto() {
         conexion = new Conexion();
     }
+    
+    /**
+ *
+ * @author jeusm
+ */
+    
+    public boolean eliminar(int id) {
+    try (Connection con = conexion.getConexion();
+            PreparedStatement ps = con.prepareStatement("DELETE FROM Medicaments WHERE ID = ?")) {
+        ps.setInt(1, id);
+        return ps.executeUpdate() > 0;
+    } catch (Exception e) {
+        System.out.println(e);
+        return false;
+    }
+}
+    
+    public boolean modificar(Medicamento medicament) {
+    try (Connection con = conexion.getConexion();
+            PreparedStatement ps = con.prepareStatement(
+                    "UPDATE Medicaments SET Medicament_Name_Comercial=?, Compound=?, Contraindications=?, Side_And_Adverse_Reactions=?, Restrictions_On_Use_During_Pregnancy_And_Lactation=?, Drug_And_Other_Interactions=?, Protection_Legends=?, General_Precautions=?, Precautions_Regarding_Carcinogenesis_Mutagenesis_Teratogenesis_And_Fertility_Effects=?, Manifestations_And_Management_Of_Overdose_And_Accidental_Ingestion=? WHERE ID=?")) {
+        ps.setString(1, medicament.getMedicamentName());
+        ps.setString(2, medicament.getCompound());
+        ps.setString(3, medicament.getContraindications());
+        ps.setString(4, medicament.getSideAndAdverseReactions());
+        ps.setString(5, medicament.getRestrictionsOnUse());
+        ps.setString(6, medicament.getDrugAndOtherInteractions());
+        ps.setString(7, medicament.getProtectionLegends());
+        ps.setString(8, medicament.getGeneralPrecautions());
+        ps.setString(9, medicament.getPrecautionsRegardingCarcinogenesis());
+        ps.setString(10, medicament.getManifestationsAndManagementOfOverdose());
+        ps.setInt(11, medicament.getId());
+
+        return ps.executeUpdate() > 0;
+    } catch (Exception e) {
+        System.out.println(e);
+        return false;
+    }
+}
 
     public boolean registrar(Medicamento medicament) {
 
-        // COPILOT GOOOOOOOD
-        // tu q dices copilot?
-        // si
+        
         try (Connection con = conexion.getConexion();
                 PreparedStatement ps = con.prepareStatement(
                         "INSERT INTO Medicaments (Medicament_Name_Comercial, Compound, Contraindications, Side_And_Adverse_Reactions, Restrictions_On_Use_During_Pregnancy_And_Lactation, Drug_And_Other_Interactions, Protection_Legends, General_Precautions, Precautions_Regarding_Carcinogenesis_Mutagenesis_Teratogenesis_And_Fertility_Effects, Manifestations_And_Management_Of_Overdose_And_Accidental_Ingestion) VALUES (?,?,?,?,?,?,?,?,?,?)")) {
